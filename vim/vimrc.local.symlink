@@ -1,0 +1,73 @@
+set guifont=menlo:h26
+
+"in insert mode type jj to enter to normal mode
+imap jj <Esc>
+" shortcut to save
+nmap <leader>, :w<cr>
+
+"Enter ; at the end of line by pressing ;;
+inoremap ;; <Esc>A;<Esc>
+nnoremap ;; <Esc>A;<Esc>
+
+"""""""""""""""New Line mappings
+"insert a new-line after the current line by pressing Enter
+nmap <CR> o<Esc>
+
+"""""""""""""""Arrow Keys
+"be coool!
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+"inoremap <up> <nop>
+"inoremap <down> <nop>
+"inoremap <left> <nop>
+"inoremap <right> <nop>
+
+"Change cursor shape in different mode
+" tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
+" http://sourceforge.net/mailarchive/forum.php?thread_name=AANLkTinkbdoZ8eNR1X2UobLTeww1jFrvfJxTMfKSq-L%2B%40mail.gmail.com&forum_name=tmux-users
+
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+  "if neovim
+endif
+
+"""""""neovim specific settings
+if has('nvim')
+    "cursor shape
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
+  tnoremap <Esc> <C-\><C-n>
+
+  tnoremap <A-h> <C-\><C-n><C-w>h
+  tnoremap <A-j> <C-\><C-n><C-w>j
+  tnoremap <A-k> <C-\><C-n><C-w>k
+  tnoremap <A-l> <C-\><C-n><C-w>l
+end
+
+""""""""""" PLUGINS """"""""""
+
+" NerdTree {
+	if isdirectory(expand("~/.vim/bundle/nerdtree"))
+		map <leader>k <plug>NERDTreeTabsToggle<CR>
+		map <leader>e :NERDTreeFind<CR>
+		nmap <leader>nt :NERDTreeFind<CR>
+
+		let NERDTreeShowBookmarks=1
+		let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+		let NERDTreeChDirMode=0
+		let NERDTreeQuitOnOpen=1
+		let NERDTreeMouseMode=2
+		let NERDTreeShowHidden=1
+		let NERDTreeKeepTreeInNewTab=1
+		let g:nerdtree_tabs_open_on_gui_startup=0
+	endif
+" }
+
+
